@@ -1,0 +1,139 @@
+{% extends 'base_wt.html' %}
+
+{% load humanize %}
+
+{% block content %}
+<main role="main">
+    <div class="container">
+
+      
+      <br/>
+      <br/>
+
+      <div class="container">
+          <div class="container">
+
+              <form class="form-inline" action="{% url 'searchresult' %}">
+                
+                  <label class="sr-only" for="inlineFormInputName1">Name</label>
+                  <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="gene 1" name="gene1" value="{{ values.gene1 }}" >
+              
+                  <label class="sr-only" for="inlineFormInputName2">Name</label>
+                  <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="gene 2" name="gene2" value="{{ values.gene2 }}" >
+                  
+    <!---                       <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Threshold</label>
+                      <select class="custom-select mb-2 mr-sm-2" id="inlineFormInputName3">
+                          <option selected='true' disabled="disabled" >Organism (all)</option>
+                          <option value="escherichia">Escherichia</option> --->
+
+                      </select>
+                      <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Threshold</label>
+
+                      <select name="pvalue"  class="custom-select mb-2 mr-sm-2" id="inlineFormInputName3">
+                          <option selected='true' disabled="disabled">Pvalue (none)</option>
+                            {% for key, value in cutoff_choices.items %}
+                              <option value="{{ key }}"
+                              {% if key == values.cutoff %}
+                                  selected
+                              {% endif %}
+                              >{{value}}</option>
+                            {% endfor %}
+                      </select>    
+                  <button type="submit" class="btn btn-primary mb-2 mr-sm-2">Search</button>
+              </form>
+            
+          </div>
+      </div>
+        <br/>
+        <br/>
+        <h3>RESULTS</h3>
+        <br/>
+        <br/>
+        <table class="table table-bordered">
+          <thead>
+              <tr>
+                <th scope="col">Gene #1</th>
+                <th scope="col">Gene #2</th>
+                <th scope="col">Together</th>
+                <th scope="col">First only</th>
+                <th scope="col">Second only</th>
+                <th scope="col">Neither</th>
+                <th scope="col">Pvalue</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% for line  in query %}
+              <tr>
+                <td>{{line.gene1}}</td>
+                <td>{{line.gene2}}</td>
+                <td>{{line.together}}</td>
+                <td>{{line.first_only}}</td>
+                <td>{{line.second_only}}</td>
+                <td>{{line.neither}}</td>
+                <td>{{line.pvalue | stringformat:"E"}}</td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+        </table>
+        <div class="pagination">
+          <span class="step-links">
+            {% if query.has_previous %}
+                
+            <ul class="pagination"> 
+              <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="First">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="?page={{ query.previous_page_number }}">{{ query.previous_page_number }}</a></li>
+              <li class="page-item active">
+                  <a class="page-link" href="?page={{ query.number }}">{{ query.number }} <span class="sr-only">(current)</span></a>
+              </li>
+          
+            {% else %}
+            <ul class="pagination"> 
+                <li class="page-item active">
+                    <a class="page-link" href="?page={{ query.number }}">{{ query.number }} <span class="sr-only">(current)</span></a>
+                </li>
+            {% endif %}
+            {% if query.has_next %}
+            <ul class="pagination"> 
+                <li class="page-item"><a class="page-link" href="?page={{ query.next_page_number }}">{{ query.next_page_number }}</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{query.paginator.num_pages}}" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+            </ul>
+            {% endif %}
+          </span>
+        </div>
+    
+      
+      
+    
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+    </div>
+</main>
+
+
+
+
+
+
+
+
+
+{% endblock %}

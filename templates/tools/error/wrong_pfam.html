@@ -1,0 +1,22 @@
+
+{% extends 'base_wt.html' %}
+{% load static %}
+{% block title %} | ERROR {% endblock %}
+
+{% block content %}
+
+<main role="main">
+    <div class="container">
+      <h1 class="text-center pt-3">Neighbourhood Analyzer</h1>
+        <br/>
+        <br/>
+        <h3>ERROR</h3>
+        <h5>Pfam domain that was inserted as query is incorrect, or there is no such domain in database please read carefully instruction above the tool's form and resubmit your analysis   </h5>
+        <img src="{% static 'img/roadblock.jpg' %}" />
+	<br/>
+        <br/>
+        <a href="{% url 'neighana'%}" class="btn btn-primary btn-sm">
+            Start Again
+          </a>
+
+{% endblock %}

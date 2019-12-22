@@ -1,0 +1,108 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | Protein co-occurrence viewer {% endblock %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-3">Protein co-occurrence viever</h1>
+          <br/>
+          <br/>
+          <p>
+		
+		Many genes in microbial genes remain functionally uncharacterised. Understanding signalling and metabolic 
+		pathways involving such genes is essential for deeper understanding of microbial biology, and also 
+		mechanisms of infectious diseases. It is well-known that genes which co-occur across genomes 
+		are more likely to share similar biological functions than random pairs of genes.
+	  </p>
+	  <p>
+		Here we propose a novel algorithm for assessing co-occurrence. We considered a serious limitation of existing approaches 
+		which is over-representation of some "popular" species like <i>Escherichia coli</i>.
+		Our algorithm allows collapsing the co-occurrence relationships at different taxonomic levels.  
+	  </p>
+	  <p>
+		Currently, the approach is available for <i>Legionella pneumophia str. Philadelphia</i> proteins 
+		(data source : <a href='https://www.uniprot.org/uniprot/?query=legionella%20pneumophila&fil=proteome%3AUP000000609+AND+organism%3A%22Legionella+pneumophila+subsp.+pneumophila+%28strain+Philadelphia+1+%2F+ATCC+33152+%2F+DSM+7513%29+%5B272624%5D%22&sort=score'>UniProt.</a>)
+		To search the co-occurrence database use gene names from Uniprot site above, e.g. drrA or sidM or lpg2464
+		<br>
+		We provide 3 ways of collapsing:
+		<br>
+		&raquo; Collapsed on species level - Here we analyse gene co-occurrence across all species. All strains that 
+			belong to the same species are considered as one entity in the analysis.
+			 
+		<br>
+		&raquo; Collapsed on <i>Legionella</i> strains - Here we analyse gene co-occurrence only across strains that belong to genus <i>Legionella</i>
+		<br>
+		&raquo; Collapsed on species within <i>Legionella</i> - Here, we analyse gene co-occurrence across all species
+			that belong to genus <i>Legionella</i> all strains that belong to the same species are considered as one entity in the analysis.
+
+
+	  </p>
+	  <p>
+		Significance of protein co-occurrence is assessed by Fisher's exact test. Co-occurrence is detected by performing	
+		a BLAST search against <a href='https://img.jgi.doe.gov/'>Integrated Microbial Genomes & Microbiomes</a> database. Hits with E-value below 1e-5 are considered occurrences of homologs
+
+	  </p>
+
+          <br/>
+          <br/>
+          <div class="container">
+                
+            </div>
+            <br/>
+            <br/>
+    
+            <div class="container">
+                <div class="container">
+
+                    <form class="form-inline" action="{% url 'searchresult' %}">
+                      
+                        <label class="sr-only" for="inlineFormInputName1">Name</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="gene 1" name="gene1" value="{{ values.gene1 }}" >
+                    
+                        <label class="sr-only" for="inlineFormInputName2">Name</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="gene 2" name="gene2" value="{{ values.gene2 }}" >
+                        
+ <!---                       <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Threshold</label>
+                            <select class="custom-select mb-2 mr-sm-2" id="inlineFormInputName3">
+                                <option selected='true' disabled="disabled" >Organism (all)</option>
+                                <option value="escherichia">Escherichia</option> --->
+    
+                            </select>
+                            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Threshold</label>
+
+                            <select name="pvalue"  class="custom-select mb-2 mr-sm-2" id="inlineFormInputName3">
+                                <option selected='true' disabled="disabled">Pvalue (none)</option>
+                                  {% for key, value in cutoff_choices.items %}
+                                    <option value="{{ key }}"
+                                    {% if key == values.cutoff %}
+                                        selected
+                                    {% endif %}
+                                    >{{value}}</option>
+                                  {% endfor %}
+                            </select>    
+                            <select name="colapsing"  class="custom-select mb-2 mr-sm-2" id="inlineFormInputName3">
+                               
+                                  {% for key, value in colapsing_choices.items %}
+                                    <option value="{{ key }}"
+                                    {% if key == values.colapsing %}
+                                        selected
+                                    {% endif %}
+                                    >{{value}}</option>
+                                  {% endfor %}
+                            </select> 
+                        <button type="submit" class="btn btn-primary mb-2 mr-sm-2 ">Search</button>
+                    </form>
+                  
+                </div>
+            </div>
+        </div>
+</main>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+{% endblock %}

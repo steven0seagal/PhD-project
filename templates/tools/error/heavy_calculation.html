@@ -1,0 +1,23 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | ERROR {% endblock %}
+
+{% block content %}
+
+<main role="main">
+    <div class="container">
+      <h1 class="text-center pt-3">Neighbourhood Analyzer</h1>
+        <br/>
+        <br/>
+        <h3>ERROR</h3>
+        <h5>Pfam domain that was inserted as query, averagely occurs more than 5 times in single genome. Due to limited
+            computation power and time to finish this analysis we have to block your job. However, if you still want to do
+            your job please click button below and send me mail with your request and we will try to help you.
+        </h5>
+
+        <a href="mailto:bartosz.piotr.baranowski@gmail.com?subject=Urgent question!" class="btn btn-primary my-2">Mail me !</a>
+
+
+        <a href="{% url 'neighana'%}" class="btn btn-primary my-2">Start Again</a>
+
+{% endblock %}

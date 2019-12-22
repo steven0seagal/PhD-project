@@ -1,0 +1,64 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | Match 3 Alignments Together {% endblock %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-3">Match 3 alignments together </h1>
+          <br/>
+          <br/>
+          
+
+          
+		<p> This tool gives opportunity to find alignments where any other software failed, but user suspects that there are some homology between sequences.
+		Software requires 3 files with alignments. First one, <b>pairwise alignment</b>, must contain 2 sequences, let's call them <b>MASTER1</b> and <b>MASTER2</b> 
+		that share part of sequences that are homologous. Next two files contain larger alignments with <b>MASTER1</b> and <b>MASTER2</b> <u>on the top of them</u>. 
+		In this two files homology between <b>MASTER1</b> and rest of <b>Large alignment #1</b> and <b>MASTER2</b> and rest of <b>Large alignment #2</b> are easier to find than 
+		in oppposite situation where we would like to find homology between <b>MASTER1</b> and <b>Large alignment #2</b>. After uploading files correctly software will merge all sequences
+		into one alignment file.</p>
+
+
+	  <br/>
+          <br/>
+          <form action = "{% url 'strechitout' %}" method="post" enctype= 'multipart/form-data'>
+
+            <p><b> Pairwaise alignment</b></p>
+            {% csrf_token %}
+            <input type="file" name="master" required=''>
+            <br/>
+            <br/>
+            <p><b> Large alignment #1</b></p>
+            {% csrf_token %}
+            <input type="file" name="slave1" required=''>
+            <br/>
+            <br/>
+            <p><b> Large alignment #2</b></p>
+            {% csrf_token %}
+            <input type="file" name="slave2" required=''>
+            <br/>
+            <br/>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" name = "out_name" placeholder="Set name to your analysis"  required="">
+              </div>
+            </div>
+            <br/>
+            <br/>
+            {% if user.is_authenticated %}
+              <input type="submit" name="analyze" value="UPLOAD and STRECH ! "  class="btn btn-primary btn-sm " >
+            {% else %}
+              <a href="{% url 'login' %}" class="btn-group">
+                <button type="button" class="btn btn-primary my-2 ">Login first !</button>
+              </a>
+            {% endif %}
+             <!--
+            <br/>
+            <button type="submit" class="btn btn-primary btn-sm ">UPLOAD and STRECH</button>
+          </form>
+        -->
+
+      </main>
+
+{% endblock %}

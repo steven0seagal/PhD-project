@@ -1,0 +1,38 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | Collapsing Alignment {% endblock %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-3">Collapsing Alignment</h1>
+          <br/>
+          <br/>
+          <p> This tool helps user to simplify output from alignment software such as <a href="https://mafft.cbrc.jp/alignment/server/">MAFFT</a> or <a href="https://www.ebi.ac.uk/Tools/msa/clustalo/">Clustal Omega</a>.
+	      User uploads file that contains aligned sequences, script takes first sequence as reference and collect data about all gaps ('-') in it. 
+	      Then in other sequences software deletes amino acids, nucleotides or gaps that were aligned to these gaps in reference sequence.
+	      This software is meant to be step between any alignment software and alignment visualizer such as <a href="http://weblogo.threeplusone.com/create.cgi">WebLogo 3</a> 
+	
+           <br/>
+
+          <br/>
+          
+          <form action = "{% url 'makeitsimple' %}" method="post" enctype= 'multipart/form-data'>
+            {% csrf_token %}
+            <input type="file" name="document" required=''>
+            <br/>
+            <br/>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" class="form-control" name = "out_name" placeholder="Set name to your analysis"  required="">
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-sm">UPLOAD</button>
+
+          </form>
+        </div>
+      </main>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base_wt.html' %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-3">Protein coocurence viever</h1>
+          <br/>
+          <br/>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+          <br/>
+          <br/>
+          <div class="container">
+                
+            </div>
+            <br/>
+            <br/>
+    
+            <div class="container">
+                <div class="container">
+
+                    <form class="form-inline" action="{% url 'searchresult' %}">
+                      
+                        <label class="sr-only" for="inlineFormInputName1">Name</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="gene 1" name="gene1" value="{{ values.gene1 }}" >
+                    
+                        <label class="sr-only" for="inlineFormInputName2">Name</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="gene 2" name="gene2" value="{{ values.gene2 }}" >
+                        
+ <!---                       <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Threshold</label>
+                            <select class="custom-select mb-2 mr-sm-2" id="inlineFormInputName3">
+                                <option selected='true' disabled="disabled" >Organism (all)</option>
+                                <option value="escherichia">Escherichia</option> --->
+    
+                            </select>
+                            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Threshold</label>
+
+                            <select name="pvalue"  class="custom-select mb-2 mr-sm-2" id="inlineFormInputName3">
+                                <option selected='true' disabled="disabled">Pvalue (none)</option>
+                                  {% for key, value in cutoff_choices.items %}
+                                    <option value="{{ key }}"
+                                    {% if key == values.cutoff %}
+                                        selected
+                                    {% endif %}
+                                    >{{value}}</option>
+                                  {% endfor %}
+                            </select>    
+                        <button type="submit" class="btn btn-primary mb-2 mr-sm-2 ">Search</button>
+                    </form>
+                  
+                </div>
+            </div>
+        </div>
+</main>
+
+{% endblock %}

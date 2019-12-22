@@ -1,0 +1,138 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | {{ news.title }}{% endblock %}
+
+{% block content %}
+
+<main role="main">
+  {% if news.is_published %}
+        <div class="container">
+          <h1 class="text-center pt-3">{{ news.title}}</h1>
+          <p>Published :  {{news.full_pub_time}}</p>
+          <img class="img-center" src="{{news.photo.url}}" alt="Place to set your image" height="400" />
+          <br/>
+          <br/>
+          <br/>
+          <p>{{news.body}}</p>
+          
+          
+          {% if news.photo1 %}
+            <br/>
+            <img class="img-center" src="{{news.photo1.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}
+          {% if news.para1 %}
+            <br/>
+            <p>{{news.para1}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo2 %}
+            <br/>
+            <img class="img-center" src="{{news.photo2.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}
+          {% if news.para2 %}
+            <br/>
+            <p>{{news.para2}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo3 %}
+            <br/>
+            <img class="img-center" src="{{news.photo3.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}
+          {% if news.para3 %}
+            <br/>
+            <p>{{news.para3}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo4 %}
+            <img class="img-center" src="{{news.photo4.url}}" alt="Place to set your image" height="400" />
+          {% endif %}
+          {% if news.para4 %}
+            <br/>
+            <p>{{news.para4}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo5 %}
+            <br/>
+            <img class="img-center" src="{{news.photo5.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}
+          {% if news.para5 %}
+            <br/>
+            <p>{{news.para5}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo6 %}
+            <br/>
+            <img class="img-center" src="{{news.photo6.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}      
+          {% if news.para6 %}
+            <br/>
+            <p>{{news.para6}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo7 %}
+            <br/>
+            <img class="img-center" src="{{news.photo7.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}
+          {% if news.para7 %}
+            <br/>
+            <p>{{news.para7}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo8 %}
+            <br/>
+            <img class="img-center" src="{{news.photo8.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}
+          {% if news.para8 %}
+            <br/>
+            <p>{{news.para8}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo9 %}
+           <br/>
+            <img class="img-center" src="{{news.photo9.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}          
+          {% if news.para9 %}
+            <br/>
+            <p>{{news.para9}}</p>
+            <br/>
+          {% endif %}
+          {% if news.photo10 %}
+            <br/>
+            <img class="img-center" src="{{news.photo10.url}}" alt="Place to set your image" height="400" />
+            <br/>
+          {% endif %}    
+          {% if news.para10 %}
+            <br/>
+            <p>{{news.para10}}</p>
+            <br/>
+          {% endif %}
+          <br/>
+          <br/>      
+          <p><small>@uthor: {{news.author}}</small></p>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+  {% else %}
+    {% include '404.html' %}
+  
+  {% endif %}
+</main>
+
+
+{% endblock %}

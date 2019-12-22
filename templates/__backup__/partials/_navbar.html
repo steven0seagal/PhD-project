@@ -1,0 +1,52 @@
+<header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="{% url 'mainsite' %}">Project's portfolio</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" >
+            <div class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Tools
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'neighana' %}">Neighbourhood analyzer</a>
+                      <a class="dropdown-item" href="{% url 'searchdbcooc' %}">Protein coocurence viewer</a>
+                      <a class="dropdown-item" href="{% url 'squezealign' %}">Colapsing Alignment</a>
+                      <a class="dropdown-item" href="{% url 'match3align' %}">Match 3 Alignemnt</a>
+  
+                  </div>
+              </li>            
+              <a class="nav-item nav-link" href="https://pawlowskilab.wordpress.com/">Our Lab's Site</a>
+              <a class="nav-item nav-link" href="{% url 'allnews' %}">News</a>
+  
+              
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            User panel
+                </a>
+                {% if user.is_authenticated %}
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'dashboard' %}">Tasks</a>
+                    <a href="javascript:{document.getElementById('logout').submit()}" class="dropdown-item">
+                      <i class="fas fa-sign-out-alt"></i>Logout
+                    </a>
+                    <form action="{% url 'logout' %}" method="POST" id="logout">
+                      {% csrf_token %}
+                      <input type="hidden">
+                    </form> 
+                  </div> 
+                {% else %}
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                    <a class="dropdown-item" href="{% url 'register' %}">Register</a>
+                    
+                  </div>
+                {% endif %}
+                </li>
+              
+            </div>
+          </div>
+        </nav>
+      </header>

@@ -1,0 +1,29 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | Collapsing Alignment {% endblock %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-3">Collapsing Alignment Results</h1>
+          <br/>
+
+          <br/>
+          
+          <a href="{{ link_ready}}" class="btn btn-primary btn-sm" download>
+            Download File
+          </a>
+          <a href="{% url 'squezealign' %}" class="btn btn-primary btn-sm">
+            Start Again
+          </a>
+          <br/>
+          <br/>
+          
+
+
+
+        </div>
+</main>
+
+{% endblock %}

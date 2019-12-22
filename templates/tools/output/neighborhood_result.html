@@ -1,0 +1,70 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} |  Neighbourhood Analyzer {% endblock %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-3">Neighbourhood Analyzer</h1>
+          <br/>
+          <br/>
+          <h5>{{message_for_output}}</h5>
+          <br/>
+          <h5>{{message_down}}</h5>
+          <br/>
+
+          <a href="{% url 'neighana'%}" class="btn btn-primary btn-sm">
+            Start Again
+          </a>
+          <br/>
+          <br/>
+          <br/>
+          <table class="table table-bordered">
+                
+            <thead>
+                <tr>
+                    
+                    <th scope="col">Pfam domain</th>
+                    <th scope="col">PVALUE</th>
+                    <th scope="col">sum in neighbourhood</th>
+                    <th scope="col">average in neighbourhood</th>
+                    <th scope="col">min in neighbourhood</th>
+                    <th scope="col">max in neighbourhood</th>
+                    <th scope="col">sum in genome</th>
+                    <th scope="col">average in genome</th>
+                    <th scope="col">min in genome</th>
+                    <th scope="col">max in genome</th>
+                   
+                </tr>
+                  
+            </thead>
+                
+                <tbody>
+                  
+                  {% for line  in complete_data %}
+                  <tr>
+                    {% for item in line %}
+                        <td>{{item}}</td>
+                    {% endfor %}
+                  </tr>
+                  {% endfor %}
+
+                </tbody>
+              </table>
+
+
+            
+            <br/>
+            
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+
+
+      </main>
+
+{% endblock %}

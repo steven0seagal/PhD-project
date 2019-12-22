@@ -1,0 +1,111 @@
+{% extends 'base_wt.html' %}
+
+{% block content %}
+
+<main role="main">
+    <form action = "{% url 'count' %}">
+        <div class="container">
+          <h1 class="text-center pt-3">Neighbourhood Analyzer</h1>
+          <br/>
+          <br/>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+          <br/>
+          <br/>
+          
+
+            <tr class="img">
+              <th class="subhead">Which pfam yot want to analyse i.e "pfam02696"</th>
+              <td>
+                <textarea name = "pfam_domain" rows="1" cols="10" maxlength="9" required="" placeholder="eg. pfam02696"></textarea>
+              </td>
+              <br/>
+              <br/>
+              <th class="subhead">Set investigated neighbourhood in bp for each ways</th>
+              <td>
+                <textarea name ="range_search" rows="1" cols="15" maxlength="7" required="" placeholder="Value beetween 1-1000000"></textarea>
+              </td>
+              <br/>
+              <br/>
+            </tr>
+            <tr class="img">
+              <th class="subhead">Set cut-off value for statistic test</th>
+                <td>
+                  <select name="cut_off">
+                    <option value="none">None</option>
+                    <option value="zeros">Only zeros</option>
+                    <option value="0.01">0.01</option>
+                    <option value="0.05">0.05</option>
+                    <option value="0.1">0.1</option>
+                    <option value="0.2">0.2</option>
+                  </select>
+                </td>
+              </tr>
+              <br/>
+              <br/>
+              <tr class="img">
+                <th class="subhead">Choose taxa</th>
+                  <td>
+                    <select name="database_taxa">
+                      <option value="alldb">All database</option>
+                      <option value="escherichia">Escherichia sp.</option>
+                      <option value="salmonella">Salmonella sp.</option>
+                      <option value="staphylococcus">Staphylococcus sp.</option>
+                      <option value="pseudomonas">Pseudomonas sp.</option>
+                      <option value="streptococcus">Streptococcus sp.</option>
+                      <option value="mycobacterium">Mycobacterium sp.</option>
+                      <option value="acinetobacter">Acinetobacter sp.</option>
+                      <option value="vibrio">Vibrio sp.</option>
+                      <option value="bacillus">Bacillus sp.</option>
+                      <option value="klebsiella">Klebsiella sp.</option>
+                      <option value="enterococcus">Enterococcus sp.</option>
+                      <option value="burkholderia">Burkholderia sp.</option>
+                      <option value="lactobacillus">Lactobacillus sp.</option>
+                      <option value="campylobacter">campylobacter sp.</option>
+                      <option value="helicobacter">Helicobacter sp.</option>
+                      <option value="shigella">Shigella sp.</option>
+
+
+
+                  </select>
+                  </td>
+                </tr>
+                <br/>
+                <br/>
+                <tr class="img">
+                  <th class="subhead">Set strands</th>
+                  <td>
+                    <select name="strand_select">
+                      <option value="both">Both strands</option>
+                      <option value="same">Same as searched pfam</option>
+                      <option value="oposite">Oposite as searched pfam</option>
+                    </select>
+                  </td>
+                </tr>
+
+                  <br/>
+                  <br/>
+                
+                <tr class="img">
+                  <th class="subhead">Name your analysis</th>
+                  <td>
+                    <textarea name = "out_name" rows="1" cols="10" maxlength="200"  placeholder="eg. analysis #1"></textarea>
+                  </td>
+            
+            
+                </tr>
+                <br/>
+                <br/>
+                {% if user.is_authenticated %}
+                  <input type="submit" name="analyze" value="Analyze ! "  class="btn btn-primary my-2" >
+                {% else %}
+                  <a href="{% url 'login' %}" class="btn-group">
+                    <button type="button" class="btn btn-primary my-2 ">Firstly login !</button>
+                  </a>
+                {% endif %}  
+    </form>
+
+
+  </main>
+
+
+{% endblock %}

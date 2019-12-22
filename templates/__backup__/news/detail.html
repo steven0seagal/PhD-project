@@ -1,0 +1,30 @@
+{% extends 'base_wt.html' %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-3">{{ news.title}}</h1>
+          <p>{{news.full_pub_time}}</p>
+          <img class="img-fluid img-center" src="{{news.photo.url}}" alt="Place to set your image" height=500 />
+          <br/>
+          <br/>
+          <br/>
+          <p>{{news.body}}</p>
+          
+          <p><small>@uthor: {{news.author}}</small></p>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+</main>
+
+
+{% endblock %}

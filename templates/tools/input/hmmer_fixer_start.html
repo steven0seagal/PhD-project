@@ -1,0 +1,55 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | HMMER Sequences Fixer  {% endblock %}
+
+{% block content %}
+
+
+<main role="main">
+    <div class="container">
+      <h1 class="text-center pt-3">HMMER Seq Fixer </h1>
+      <br/>
+      <br/>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+      <br/>
+      <br/>
+
+      <form action = "{% url 'hmmer_analysis' %}" method="post" enctype= 'multipart/form-data'>
+      
+      
+        <p><b> MAIN SEQUENCES</b></p>
+          {% csrf_token %}
+            <input type="file" name="master" required=''>
+            <br/>
+            <br/>
+        <p><b> SKIP SEQUENCES</b></p>
+          {% csrf_token %}
+            <input type="file" name="skipdaseks">
+            <br/>
+            <br/>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" name = "out_name" placeholder="Set name to your analysis"  required="">
+          </div>
+        </div>
+        <br/>
+        <br/>
+        {% if user.is_authenticated %}
+          <input type="submit" name="analyze" value="UPLOAD and FIX IT ! "  class="btn btn-primary btn-sm " >
+        {% else %}
+          <a href="{% url 'login' %}" class="btn-group">
+            <button type="button" class="btn btn-primary my-2 ">Login first !</button>
+          </a>
+        {% endif %}
+      </form>
+    </div>
+      
+       <!--
+      <br/>
+      <button type="submit" class="btn btn-primary btn-sm ">UPLOAD and STRECH</button>
+    </form>
+  -->
+
+</main>
+
+{% endblock %}

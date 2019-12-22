@@ -1,0 +1,204 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | Dashboard {% endblock %}
+
+{% block content %}
+
+<main role="main">
+    <div class="container">
+      <h1 class="text-center pt-5">Results</h1>
+<br/>
+<br/>
+<br/>
+
+<section id="dashboard" class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Welcome {{ user.username }} here is list of your jobs:</h2>
+        <br/>
+        <br/>
+        <br/>
+        {% if neigh_example_jobs  %}
+          <h3>Neighborhood analyzer:</h3>
+          <br/>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                    <th scope="col"> # </th>
+                    <th scope="col">Pfam</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Cutoff</th>
+                    <th scope="col">Tax</th>
+                    <th scope="col">Strand</th>
+                    <th scope="col">Correction</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Download</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {% for query in neigh_example_jobs %}
+                    <tr>
+                      <td>{{query.id}}</td>
+                      <td>{{query.domain}}</td>
+                      <td>{{query.range}}</td>
+                      <td>{{query.cutoff}}</td>
+                      <td>{{query.tax}}</td>
+                      <td>{{query.strand}}</td>
+                      <td>{{query.correction}}</td>
+                      <td>{{query.status}}</td>
+                     {% if query.status == 'Done' %}
+                        <td>
+                             <a href="{{query.link}}" class="btn btn-primary btn-sm" download>
+                                Download File
+                            </a>
+                        </td>
+                      {% elif query.status == 'Queue' %}
+                        <td> Please be patient ;)</td>
+                      {% elif query.status == 'Error' %}
+                        <td> Please contact us  </td>
+                      {% elif query.status == 'Running' %}
+                        <td> We analyse your request </td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
+                </tbody>
+          </table>
+        {% else %}
+          <h3>Neighborhood analyzer:</h3>
+          <p> You have not started any jobs yet </p>
+        {% endif %}
+        <br/>
+        <br/>
+
+        {% if checked_data_colapser %}
+          <h3>Colapser tool:</h3>
+          <br/>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                    <th scope="col"> # </th>
+                    <th scope="col">Analysis name</th>
+                    <th scope="col">Insert file</th>
+                    <th scope="col">Download</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for colapser_job in checked_data_colapser %}
+                    <tr>
+                      <td>{{colapser_job.id}}</td>
+                      <td>{{colapser_job.anal_name}}</td>
+                      <td>{{colapser_job.insert_file}}</td>
+                      {% if colapser_job.link != None %}
+                        <td>
+                             <a href="{{colapser_job.link}}" class="btn btn-primary btn-sm" download>
+                                Download File
+                            </a>
+                        </td>
+                      {% else %}
+                        <td>Calculating...</td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
+                </tbody>
+          </table>
+        {% else %}
+          <h3>Colapser tool:</h3>
+          <p> You have not started any jobs yet </p>
+        {% endif %}
+        <br/>
+        <br/>
+
+        {% if checked_strecher_jobs %}
+          <h3>Strecher tool:</h3>
+          <br/>
+          <table class="table table-bordered">
+            <thead>
+                <tr>
+                  <th scope="col"> # </th>
+                  <th scope="col">Analysis name</th>
+                  <th scope="col">Master-Mater</th>
+                  <th scope="col">Master-Slave-1</th>
+                  <th scope="col">Master-Slave-2</th>
+                  <th scope="col">Outtime</th>
+                  <th scope="col">Download</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for stretcher_job in checked_strecher_jobs %}
+                  <tr>
+                    <td>{{stretcher_job.id}}</td>
+                    <td>{{stretcher_job.anal_name}}</td>
+                    <td>{{stretcher_job.insert_file_master_master}}</td>
+                    <td>{{stretcher_job.insert_file_master_slave_one}}</td>
+                    <td>{{stretcher_job.insert_file_master_slave_two}}</td>
+                    <td>{{stretcher_job.out_time}}</td>
+                    {% if stretcher_job.link != None %}
+                      <td>
+                           <a href="{{stretcher_job.link}}" class="btn btn-primary btn-sm" download>
+                              Download File
+                          </a>
+                      </td>
+                    {% else %}
+                      <td>Calculating...</td>
+                    {% endif %}
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+        {% else %}
+          <h3>Strecher tool:</h3>
+          <p> You have not started any jobs yet </p>
+        {% endif %}
+        <br/>
+        <br/>
+        {% if checked_hmmer_jobs %}
+        <h3>Hmmer fixer tool:</h3>
+        <br/>
+        <table class="table table-bordered">
+          <thead>
+              <tr>
+                <th scope="col"> # </th>
+                <th scope="col">Analysis name</th>
+                <th scope="col">Master file</th>
+                <th scope="col">Skipped seqs file</th>
+                <th scope="col">Download</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for hmmer_job in checked_hmmer_jobs %}
+              <tr>
+                <td>{{hmmer_job.id}}</td>
+                <td>{{hmmer_job.anal_name}}</td>
+                <td>{{hmmer_job.main_file}}</td>
+                <td>{{hmmer_job.skipped_seqs}}</td>
+                {% if hmmer_job.link != None %}
+                  <td>
+                       <a href="{{hmmer_job.link}}" class="btn btn-primary btn-sm" download>
+                          Download File
+                      </a>
+                  </td>
+                {% else %}
+                  <td>Calculating...</td>
+                {% endif %}
+               </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <h3>Hmmer fixer tool:</h3>
+        <p> You have not started any jobs yet </p>
+      {% endif %}
+
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <h4 class="text-center pt-5">Current server time  {{current_time}}</h4>
+
+  
+{% endblock %}

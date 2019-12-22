@@ -1,0 +1,73 @@
+{% extends 'base_wt.html' %}
+
+{% block title %} | News {% endblock %}
+
+{% block content %}
+
+<main role="main">
+        <div class="container">
+          <h1 class="text-center pt-5">NEWS</h1>
+          <br/>
+          <br/>
+          <h2> Latest information </h2>
+          <hr/>
+  
+        </div>
+        <div class="container">
+          <div class='col'>
+            {% for new in news %}
+              {% if new.is_published %}
+                <div class='container'>
+                  <a href="{% url 'detail' new.id %}"><h2 class="mt-0">{{ new.title }}</h2></a>
+                  <p><small>{{new.pub_time_better}}</small></p>
+                  <img class="img-fluid" src="{{new.photo.url}}" alt="Place to set your image" height=200 width=200/>
+                  <div class="media-body">
+                    <br/>
+                    <p>{{new.summary}}</p>
+                    <br/>
+                    <hr>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+
+            
+            <div class="pagination">
+                <span class="step-links">
+                    {% if news.has_previous %}
+                    
+                    <ul class="pagination"> 
+                      <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="?page={{ news.previous_page_number }}">{{ news.previous_page_number }}</a></li>
+                      <li class="page-item active">
+                          <a class="page-link" href="?page={{ news.number }}">{{ news.number }} <span class="sr-only">(current)</span></a>
+                      </li>
+                   
+                    {% else %}
+                    <ul class="pagination"> 
+                        <li class="page-item active">
+                            <a class="page-link" href="?page={{ news.number }}">{{ news.number }} <span class="sr-only">(current)</span></a>
+                        </li>
+                    {% endif %}
+                    {% if news.has_next %}
+                    <ul class="pagination"> 
+                        <li class="page-item"><a class="page-link" href="?page={{ news.next_page_number }}">{{ news.next_page_number }}</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{news.paginator.num_pages}}" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                    </ul>
+                    {% endif %}
+                </span>
+            </div>
+          </div>
+        </div>
+
+{% endblock %}
