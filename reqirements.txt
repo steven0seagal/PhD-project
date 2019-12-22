@@ -1,6 +1,6 @@
 biopython==1.73
 crontab==0.22.5
-Django==2.1.7
+Django==2.1.15
 django-jquery==3.1.0
 django-tables2==2.0.5
 gunicorn==19.9.0
