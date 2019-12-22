@@ -139,3 +139,4 @@ scripts.7z
 /media/*
 /final_site/settings.py
 final_site/local_settings.py
+.idea
