@@ -8,7 +8,7 @@ from scripts.PfamValidate import PfamValidator
 from scripts.pfam_input import retype_domain
 
 def neighana(request):
-    return render(request, 'tools/input/neighborhood_analyzer.html')
+    return render(request, 'tools/input/neighborhood_analyzer_domain.html')
 
 def count(request):
 #    fulltext = request.GET['fulltext']

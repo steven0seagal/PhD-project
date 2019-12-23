@@ -1,0 +1,169 @@
+{% extends 'base_wt.html' %}
+
+
+{% block title %} | Neighborhood Analyzer{% endblock %}
+
+{% block content %}
+
+<main role="main">
+    <form action = "{% url 'count' %}">
+        <div class="container">
+          <h1 class="text-center pt-3">Neighbourhood Analyzer - Gene</h1>
+          <br/>
+          <br/>
+          <p>
+		In prokaryotic genomes, functionally coupled genes can be organized in conserved gene clusters, e.g. operons
+		enabling their coordinated regulation. Thus, it is possible to predict function of uncharacterised genes
+		by analyzing functional annotations within their neighborhoods. Here, we present an algorithm that gives an insight
+		into genomic neighborhoods of a query protein family by calculating statistical significance (Wilcoxon test)
+		for overrepresentation of functional domains in the neighbourhood.
+	   </p>
+	   <p>
+		&raquo; As query, the user can choose a protein family from the Pfam database (September 2018, 17929 entries),
+		<a href="http://www.pfam.xfam.org">PFAM MAIN SITE</a>. For input, query domain has to be spelled "pfNNNNN" or "PFNNNNN",
+		e.g. PF02696.
+	   <br>
+		&raquo; The size of neighbourhood is described as number of basepairs before and after the gene whose protein
+		product possesses the query pfam domain. Typically, the size of neighborhood set to 5000 bp corresponds to 10 genes
+		in whole neighborhood.
+
+	   <br>
+		&raquo; Due to possibility of high false discovery rate that can be a serious problem when multiple tests are performed
+		(e.g. many Pfam domains are evaluated for overrepresentation), the  user can decide which method of multiple test correction to use.
+	   <br>
+		<a href="https://en.wikipedia.org/wiki/Bonferroni_correction">Bonferroni correction</a> or
+		<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.829.8800&rep=rep1&type=pdf">Benjamini-Hochberg procedure</a>
+	   <br>
+		&raquo; Organisms that are available for neighborhood analysis were chosen based on high number of representative genomes available.
+		The genomic data that is used in this server came from <br> <a href="https://img.jgi.doe.gov/">
+		JGI IMG Integrated Microbial Genomes & Microbiomes</a> and it contains prokaryotic complete genomes and
+		uncomplete data from environmental sequencing.
+	   <br>
+		&raquo; Currently, during neighborhood analysis both strands are taken to collect information about protein
+		families. However, in the future it will be possible also to choose only the strand on which the query pfam
+		domain is present in the analysed genome.
+	   <br>
+		&raquo; Cut-off value is used to narrow the output based on p-value, and name of analysis is just for user's convenience
+
+	   </p>
+          <br/>
+          <br/>
+
+    <form>
+      <div class="form-row">
+          <div class="form-group col-md-6">
+            <p>Upload file that contains gene list to analyze</p>
+            {% csrf_token %}
+            <input type="file" name="master" required=''>
+          </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="Range">Set size of neighbourhood, you want to investigate (bp for up and downstream)</label>
+          <input class="form-control" name ="range_search" value="5000" required="" type="number"  min="1" max="20000" step="1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="MultiTestCorrection">Choose which multiple test correction method you want to use</label>
+          <select name="test_correction" class="form-control">
+            <option selected value='none'>None</option>
+            <option value='bonferroni'>Bonferroni Correction</option>
+            <option value='fdr_bh'>Benjamini-Hochberg Procedure</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="Taxa">Choose which genus you want to investigate</label>
+          <select name="database_taxa" class="form-control">
+
+            <option value="escherichia">Escherichia sp.</option>
+            <option value="salmonella">Salmonella sp.</option>
+            <option value="staphylococcus">Staphylococcus sp.</option>
+            <option value="pseudomonas">Pseudomonas sp.</option>
+            <option value="streptococcus">Streptococcus sp.</option>
+            <option value="mycobacterium">Mycobacterium sp.</option>
+            <option value="acinetobacter">Acinetobacter sp.</option>
+            <option value="vibrio">Vibrio sp.</option>
+            <option value="bacillus">Bacillus sp.</option>
+            <option value="klebsiella">Klebsiella sp.</option>
+            <option value="enterococcus">Enterococcus sp.</option>
+            <option value="burkholderia">Burkholderia sp.</option>
+            <option value="lactobacillus">Lactobacillus sp.</option>
+            <option value="campylobacter">Campylobacter sp.</option>
+            <option value="helicobacter">Helicobacter sp.</option>
+            <option value="shigella">Shigella sp.</option>
+            <option value="brucella">Brucella sp.</option>
+            <option value="rhizobium">Rhizobium sp.</option>
+            <option value="mesorhizobium">Mesorhizobium sp.</option>
+
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="Strand">Choose which DNA strand you are insterested in </label>
+          <select name="strand_select" class="form-control">
+            <option selected value="both">Both strands</option>
+            <!-- FOR FUTURE SCRIPT!!!
+            <option value="same">Same as searched pfam</option>
+            <option value="oposite">Oposite as searched pfam</option>
+            -->
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="CutOff">Set cut-off value for output from statistic test </label>
+          <select name="cut_off" class="form-control">
+            <option selected value="none">None</option>
+            <option value="0">Only zeros</option>
+            <option value="0.00001">0.00001</option>
+            <option value="0.00005">0.00005</option>
+            <option value="0.0001">0.0001</option>
+            <option value="0.0005">0.0005</option>
+            <option value="0.001">0.001</option>
+            <option value="0.005">0.005</option>
+            <option value="0.01">0.01</option>
+            <option value="0.05">0.05</option>
+            <option value="0.1">0.1</option>
+            <option value="0.2">0.2</option>
+            <option value="0.5">0.5</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="PfamDomain">Give a name to your analysis</label>
+          <input type="text" class="form-control" name = "out_name" placeholder="42 is the answer"  required="">
+        </div>
+      </div>
+      <br/>
+      <br/>
+      {% if user.is_authenticated %}
+        <input type="submit" name="analyze" value="Analyze ! "  class="btn btn-primary my-2" >
+      {% else %}
+        <a href="{% url 'login' %}" class="btn-group">
+          <button type="button" class="btn btn-primary my-2 ">Login first !</button>
+        </a>
+      {% endif %}
+
+
+    </form>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+  </main>
+
+
+{% endblock %}

@@ -8,8 +8,14 @@ import string
 from scripts.PfamValidate import PfamValidator
 from scripts.pfam_input import retype_domain, check_if_domain_can_be_reachable
 
+def neighana_menu(request):
+    return(render(request, 'tools/input/neighborhood_analyzer_menu.html'))
+
+def geneana(request):
+    return(render(request,'tools/input/neighborhood_analyzer_gene.html'))
+
 def neighana(request):
-    return render(request, 'tools/input/neighborhood_analyzer.html')
+    return render(request, 'tools/input/neighborhood_analyzer_domain.html')
 
 def count(request):
 #    fulltext = request.GET['fulltext']
