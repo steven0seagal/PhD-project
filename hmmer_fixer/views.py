@@ -29,7 +29,7 @@ def hmmer_analysis(request):
             fs = FileSystemStorage()
             out_name = request.POST['out_name']
 
-            uploaded_file_main = request.FILES['master']
+            uploaded_file_main = request.FILES['main']
             name_main = fs.save(uploaded_file_main.name, uploaded_file_main)
             context_main['url'] = fs.url(name_main)
             link_do_main = context_main['url']
@@ -63,7 +63,7 @@ def hmmer_analysis(request):
             fs = FileSystemStorage()
             out_name = request.POST['out_name']
 
-            uploaded_file_main = request.FILES['master']
+            uploaded_file_main = request.FILES['main']
             name_main = fs.save(uploaded_file_main.name, uploaded_file_main)
             context_main['url'] = fs.url(name_main)
             link_do_main = context_main['url']

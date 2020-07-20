@@ -26,9 +26,9 @@ class Migration(migrations.Migration):
             name='StretcherDatabase',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('insert_file_master_master', models.CharField(max_length=200)),
-                ('insert_file_master_slave_one', models.CharField(max_length=200)),
-                ('insert_file_master_slave_two', models.CharField(max_length=200)),
+                ('insert_file_main_main', models.CharField(max_length=200)),
+                ('insert_file_main_subordinate_one', models.CharField(max_length=200)),
+                ('insert_file_main_subordinate_two', models.CharField(max_length=200)),
                 ('user_id', models.IntegerField()),
                 ('out_time', models.CharField(blank=True, max_length=50)),
                 ('link', models.CharField(max_length=200)),
