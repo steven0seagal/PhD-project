@@ -78,27 +78,27 @@ def makeitsimple(request):
 
 def strechitout(request):
     #Skoro to jest slownik to mo¿na to za³atwiæ jednym a nie trzema
-    context_master = {}
-    context_slave1 = {}
-    context_slave2 = {}
+    context_main = {}
+    context_subordinate1 = {}
+    context_subordinate2 = {}
     linki = '/home/djangoadmin/final_site-project/media/'
     
     results_link = '/media/results/'
     if request.method =='POST':
         out_name = request.POST['out_name']
-        uploaded_file_master = request.FILES['master']
-        uploaded_file_slave1 = request.FILES['slave1']
-        uploaded_file_slave2 = request.FILES['slave2']
+        uploaded_file_main = request.FILES['main']
+        uploaded_file_subordinate1 = request.FILES['subordinate1']
+        uploaded_file_subordinate2 = request.FILES['subordinate2']
         fs = FileSystemStorage()
-        name_master = fs.save(uploaded_file_master.name, uploaded_file_master)
-        name_slave1 = fs.save(uploaded_file_slave1.name, uploaded_file_slave1)
-        name_slave2 = fs.save(uploaded_file_slave2.name, uploaded_file_slave2)
-        context_master['url'] = fs.url(name_master)
-        context_slave1['url'] = fs.url(name_slave1)
-        context_slave2['url'] = fs.url(name_slave2)
-        link_do_master = context_master['url']
-        link_do_slave1 = context_slave1['url']
-        link_do_slave2 = context_slave2['url']
+        name_main = fs.save(uploaded_file_main.name, uploaded_file_main)
+        name_subordinate1 = fs.save(uploaded_file_subordinate1.name, uploaded_file_subordinate1)
+        name_subordinate2 = fs.save(uploaded_file_subordinate2.name, uploaded_file_subordinate2)
+        context_main['url'] = fs.url(name_main)
+        context_subordinate1['url'] = fs.url(name_subordinate1)
+        context_subordinate2['url'] = fs.url(name_subordinate2)
+        link_do_main = context_main['url']
+        link_do_subordinate1 = context_subordinate1['url']
+        link_do_subordinate2 = context_subordinate2['url']
         user_id = request.user.id
 
         letters = string.ascii_lowercase
@@ -107,11 +107,11 @@ def strechitout(request):
         ################################################################################################################
         # Local
         ready_script = 'python3 /mnt/d/45.76.38.24/final_site-project/scripts/execute_order_69.py {} {} ' \
-                       '{} {}'.format(name_master, name_slave1,name_slave2, link_down)
+                       '{} {}'.format(name_main, name_subordinate1,name_subordinate2, link_down)
         # Vultr
         # ready_script = """ '/home/djangoadmin/final_site_venv/bin/python3
         #                   /home/djangoadmin/final_site-project/scripts/execute_order_69.py {} {} ' \
-        #                   {} {}'.format(name_master, name_slave1,name_slave2, link_down)"""
+        #                   {} {}'.format(name_main, name_subordinate1,name_subordinate2, link_down)"""
 
         job = CompleteQueue(user_id=user_id, tool='M3A', status='Queue', analysis_name=out_name,
                             script=ready_script, file=link_down)
@@ -119,15 +119,15 @@ def strechitout(request):
 
         ################################################################################################################
         """
-        create_task = CreateCronTaskStreching(name_master, name_slave1, name_slave2, out_name)
+        create_task = CreateCronTaskStreching(name_main, name_subordinate1, name_subordinate2, out_name)
         pre_end = create_task.Task()
         end_end = pre_end.replace(' ','_')
         link_down = '/media/' + end_end +'.txt'
-        #a = ThreeAlignmentColapser(reference_multifasta = name_master , first_multifasta = name_slave1, second_multifasta = name_slave2)
+        #a = ThreeAlignmentColapser(reference_multifasta = name_main , first_multifasta = name_subordinate1, second_multifasta = name_subordinate2)
         #a.Go()
         #guide_to_file = a.CreateDownloadableLink()
         #link_ready = results_link+guide_to_file
-        query = StretcherDatabase(insert_file_master_master = name_master , insert_file_master_slave_one = name_slave1, insert_file_master_slave_two= name_slave2, user_id = user_id, out_time = end_end, link = link_down, anal_name = out_name)
+        query = StretcherDatabase(insert_file_main_main = name_main , insert_file_main_subordinate_one = name_subordinate1, insert_file_main_subordinate_two= name_subordinate2, user_id = user_id, out_time = end_end, link = link_down, anal_name = out_name)
         query.save()
         """
     return redirect('dashboard')
