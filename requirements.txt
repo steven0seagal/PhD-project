@@ -2,7 +2,7 @@ biopython==1.73
 Django==2.1.7
 django-jquery==3.1.0
 django-tables2==2.0.5
-numpy==1.16.2
+numpy==1.22.0
 pandas==0.24.2
 Pillow==6.2.0
 psycopg2==2.7.7
